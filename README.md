@@ -1,6 +1,40 @@
 ﻿# perpetual-scholar-agent
 
+[![Python Version](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-Proprietary-red)](LICENSE)
+[![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/)
+[![Documentation](https://img.shields.io/badge/docs-latest-blue)](docs/)
+[![Phase](https://img.shields.io/badge/phase-0%20Research%20%26%20Setup-orange)](PROJECT-DEVELOPMENT-PHASE-TRACKING.md)
+[![Contributing](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Security](https://img.shields.io/badge/security-responsible-blue.svg)](SECURITY.md)
+
 An autonomous 24/7 self-evolving agent that masters a specialized technical domain through continuous research, sandbox experimentation, and reinforcement-learning-driven self-improvement.
+
+## Table of Contents
+
+- [Features](#features)
+- [Architecture](#architecture)
+- [Quick Start](#quick-start)
+- [Configuration](#configuration)
+- [Project Structure](#project-structure)
+- [Running Tests](#running-tests)
+- [CLI Commands](#cli-commands)
+- [Documentation](#documentation)
+- [Support](#support)
+- [Contributing](#contributing)
+- [Security](#security)
+- [License](#license)
+
+## Features
+
+- **Continuous Research**: Automatically crawls arXiv, GitHub Trending, and RSS feeds for cutting-edge techniques
+- **Sandboxed Experimentation**: Executes generated code in isolated Docker containers with resource limits
+- **Benchmark Verification**: Uses pytest-benchmark and hyperfine to validate performance improvements
+- **Reinforcement Learning**: PPO-based policy learning optimized for technique discovery
+- **Self-Improvement**: Periodic LoRA fine-tuning to internalize validated lessons
+- **Vector Knowledge Base**: FAISS-powered semantic search over accumulated lessons
+- **Production Ready**: Docker Compose deployment, monitoring, and comprehensive testing
 
 ## Architecture
 
@@ -289,3 +323,30 @@ python -m agent verify --component ollama
 ## License
 
 Private project — see LICENSE for details.
+
+## Documentation
+
+- [Technical Specification](PROJECT-detail.md) - Full architecture and design documentation
+- [Development Phase Tracking](PROJECT-DEVELOPMENT-PHASE-TRACKING.md) - Phase-by-phase implementation roadmap
+- [Second Knowledge Brain](SECOND-KNOWLEDGE-BRAIN.md) - Research papers and knowledge log
+- [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment instructions
+- [Testing Guide](docs/TESTING.md) - Testing conventions and best practices
+- [Contributing Guide](CONTRIBUTING.md) - Contribution guidelines and workflows
+- [Security Policy](SECURITY.md) - Security policies and vulnerability reporting
+- [Code of Conduct](CODE_OF_CONDUCT.md) - Community guidelines
+- [Changelog](CHANGELOG.md) - Version history and changes
+
+## Support
+
+- 📖 [Documentation](docs/)
+- 🐛 [Issue Tracker](https://github.com/your-org/perpetual-scholar-agent/issues)
+- 💬 [Discussions](https://github.com/your-org/perpetual-scholar-agent/discussions)
+- 📧 [Email Support](mailto:support@perpetual-scholar-agent.com)
+
+## Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## Security
+
+For security concerns, please see [SECURITY.md](SECURITY.md) and follow our responsible disclosure process.
