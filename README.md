@@ -184,6 +184,45 @@ python -m agent run --once
 python -m agent start
 ```
 
+## Mock Mode (Development/Testing)
+
+**⚡ NEW:** Run the agent without heavy ML dependencies!
+
+For development, testing, or environments where you don't want to install heavy ML packages (PyTorch, FAISS, etc.), use **mock mode**:
+
+```bash
+# Initialize without ML dependencies
+python -m agent init --mock
+
+# Run a mock pipeline cycle (no LLM, Docker, or FAISS required)
+python -m agent run --mock
+
+# Start dashboard in mock mode
+python -m agent dashboard --mock
+```
+
+**What Mock Mode Does:**
+- ✅ Mocks LLM calls (Ollama, Claude, OpenAI)
+- ✅ Mocks Docker sandbox execution
+- ✅ Mocks FAISS vector search
+- ✅ Mocks RL training and LoRA fine-tuning
+- ✅ Runs complete pipeline with simulated results
+- ✅ Perfect for development, CI/CD, and demonstrations
+
+**Use Cases:**
+- **Development:** Test changes without ML dependencies
+- **CI/CD:** Fast pipeline testing without GPU/heavy packages
+- **Demonstrations:** Show agent workflow without infrastructure setup
+- **Testing:** Verify logic and data flow without resource costs
+
+**Mock vs Real Mode:**
+| Feature | Real Mode | Mock Mode |
+|---------|-----------|------------|
+| ML Dependencies | Required (torch, faiss, etc.) | Not required |
+| Pipeline Speed | Slower (real LLM calls) | Fast (simulated) |
+| Results | Real benchmarks | Simulated results |
+| Use Case | Production | Development/Testing |
+
 ## Project Structure
 
 ```
