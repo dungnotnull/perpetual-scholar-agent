@@ -26,7 +26,7 @@ If you discover a security vulnerability, please report it responsibly.
 
 ### How to Report
 
-Send your report to: **[INSERT SECURITY CONTACT EMAIL]**
+Send your report to: **security@perpetual-scholar-agent.org**
 
 Include the following information:
 - Description of the vulnerability
