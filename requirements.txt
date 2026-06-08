@@ -39,7 +39,6 @@ tenacity>=8.3
 prometheus-client>=0.20
 
 # Testing
-pytest>=8.2
 pytest-benchmark>=4.0
 pytest-cov>=5.0
 pytest-asyncio>=0.23
