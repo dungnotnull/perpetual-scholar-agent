@@ -1,0 +1,61 @@
+﻿# perpetual-scholar-agent
+
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# Data (local SQLite + FAISS)
+data/*.db
+data/*.faiss
+data/*.json
+data/reports/
+
+# Models (LoRA adapters + RL checkpoints)
+models/lora_adapter_v*/
+models/rl_policy/
+models/tensorboard/
+
+# Docker volumes
+docker/volumes/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Test artifacts
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Claude
+.claude/

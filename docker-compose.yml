@@ -1,0 +1,115 @@
+﻿# perpetual-scholar-agent — Docker Compose for production deployment
+#
+# Usage:
+#   docker compose up -d           # Start all services
+#   docker compose logs -f agent   # Follow agent logs
+#   docker compose down             # Stop all services
+
+version: "3.9"
+
+services:
+  agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: psa-agent
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - agent-data:/app/data
+      - agent-models:/app/models
+      - ollama-home:/root/.ollama
+    ports:
+      - "8080:8080"
+    depends_on:
+      ollama:
+        condition: service_healthy
+    networks:
+      - psa-network
+    deploy:
+      resources:
+        limits:
+          memory: 16G
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: psa-ollama
+    restart: unless-stopped
+    volumes:
+      - ollama-home:/root/.ollama
+    ports:
+      - "11434:11434"
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+    networks:
+      - psa-network
+    deploy:
+      resources:
+        limits:
+          memory: 12G
+
+  redis:
+    image: redis:7-alpine
+    container_name: psa-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - psa-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: psa-prometheus
+    restart: unless-stopped
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - psa-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: psa-grafana
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    networks:
+      - psa-network
+
+volumes:
+  agent-data:
+  agent-models:
+  ollama-home:
+  redis-data:
+  prometheus-data:
+  grafana-data:
+
+networks:
+  psa-network:
+    driver: bridge

@@ -1,0 +1,39 @@
+﻿# perpetual-scholar-agent — systemd service unit file
+# Install: sudo cp psa-agent.service /etc/systemd/system/
+#          sudo systemctl daemon-reload
+#          sudo systemctl enable psa-agent
+#          sudo systemctl start psa-agent
+# Logs:    journalctl -u psa-agent -f
+
+[Unit]
+Description=Perpetual Scholar Agent — Autonomous Research Agent
+After=network-online.target docker.service
+Wants=network-online.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=psa
+Group=psa
+WorkingDirectory=/opt/perpetual-scholar-agent
+Environment=PATH=/opt/perpetual-scholar-agent/.venv/bin:/usr/local/bin:/usr/bin:/bin
+EnvironmentFile=/opt/perpetual-scholar-agent/.env
+ExecStart=/opt/perpetual-scholar-agent/.venv/bin/python -m agent start
+Restart=on-failure
+RestartSec=30
+StandardOutput=journal
+StandardError=journal
+
+# Resource limits
+LimitNOFILE=65536
+MemoryMax=16G
+CPUQuota=800%
+
+# Security
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ReadWritePaths=/opt/perpetual-scholar-agent/data /opt/perpetual-scholar-agent/models
+
+[Install]
+WantedBy=multi-user.target
